@@ -17,13 +17,13 @@
   ☐ Add strong type checking to all the places where data is being set or get from the internet
 
 ☐ Create the profile page
-  ☐ Get the user data that is needed to render the profile create/update page
-    ☐ Username, photo
-  ☐ Create an empty field where the user has to type in the status 
-  ☐ then submit the details inorder to update the users data in the realtime db
-    ☐ update request to firebase
-    ☐ Update the redux state with the status
-    ☐ redirect to all profiles page
+  ✔ Get the user data that is needed to render the profile create/update page @done (4/16/2022, 6:45:44 PM)
+    ✔ Username, photo @done (4/16/2022, 6:45:45 PM)
+  ✔ Create an empty field where the user has to type in the status @done (4/16/2022, 6:45:48 PM)
+  ✔ then submit the details inorder to update the users data in the realtime db @done (4/16/2022, 6:48:08 PM)
+    ✔ update request to firebase @done (4/16/2022, 6:45:53 PM)
+    ✔ Update the redux state with the status @done (4/16/2022, 6:45:54 PM)
+    ✔ redirect to all profiles page @done (4/16/2022, 6:47:54 PM)
   ☐ Build the UI of the page
 
   

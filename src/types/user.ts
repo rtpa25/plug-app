@@ -9,4 +9,5 @@ export interface user {
   photoUrl: string;
   uuid: string;
   email: string;
+  status: string;
 }

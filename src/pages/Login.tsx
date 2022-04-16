@@ -35,7 +35,7 @@ const Login: FC = () => {
   useEffect(() => {
     const manageUserData = async () => {
       if (user) {
-        navigate('/create-profile');
+        navigate('/');
       }
     };
     manageUserData();
@@ -65,6 +65,7 @@ const Login: FC = () => {
             email: user.user.email as string,
             photoUrl: user.user.photoURL as string,
             uuid: user.user.uid,
+            status: '',
           },
         })
       );
@@ -104,6 +105,7 @@ const Login: FC = () => {
           email: email as string,
           photoUrl: photoURL as string,
           uuid: uuid,
+          status: '',
         },
       })
     );

@@ -9,6 +9,7 @@ const initialState: IndividualUser = {
     email: '',
     photoUrl: '',
     uuid: '',
+    status: '',
   },
 };
 

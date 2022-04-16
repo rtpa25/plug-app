@@ -36,7 +36,7 @@ const App: FC = () => {
           path='/create-profile'
           element={user ? <CreateProfile /> : <Login />}
         />
-        <Route path='/profiles' element={user ? <Profiles /> : <Login />} />
+        <Route path='/' element={user ? <Profiles /> : <Login />} />
       </Routes>
     </BrowserRouter>
   );
