@@ -7,11 +7,11 @@
       ✔ The routes should be protected @done (4/16/2022, 11:59:27 AM)
       ✔ Once logged in should store the auth details to the redux slice @done (4/16/2022, 11:59:31 AM)
       ✔ Post login should be redirected to the create profile page to create the profile @done (4/16/2022, 11:59:35 AM)
-  ☐ Create the anonumous login option
-    ☐ create a email password type sign-up sign-in flow 
-    ☐ And when the user presses the anonumous button create brand new data from the fake api and use it to get the user logged in
-    ☐ Need to figure out how to persist the anonymous login details when the user re logs in
-      ☐ can store some stuff in browser maybe need to figure this out
+  ✔ Create the anonumous login option @done (4/16/2022, 3:39:55 PM)
+    ✔ just store the data of user in rdb @done (4/16/2022, 3:39:41 PM)
+    ✔ And when the user presses the anonumous button create brand new data from the fake api and use it to get the user logged in @done (4/16/2022, 3:39:46 PM)
+    ✔ Need to figure out how to persist the anonymous login details when the user re logs in (later) @done (4/16/2022, 3:39:49 PM)
+      ✔ can store some stuff in browser maybe need to figure this out @done (4/16/2022, 3:39:52 PM)
   ✔ Store the relevant details with redux toolkit to be used in multiple pages @done (4/16/2022, 12:02:52 PM)
   ☐ Build the UI for the auth page 
 

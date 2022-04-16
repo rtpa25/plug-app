@@ -9,6 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useAppDispatch } from '../hooks/index';
 import { setUserData } from '../store/slices/userSlice';
 import { ref, set } from 'firebase/database';
+import axios from 'axios';
 
 const Login: FC = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Login: FC = () => {
     manageUserData();
   }, [navigate, user]);
 
-  const signInHandler = async () => {
+  const googleSigninHandler = async () => {
     //!TODO: need to improve type checking
     try {
       //reach out to google's server to authenticate with third party
@@ -52,6 +53,8 @@ const Login: FC = () => {
         })
       );
 
+      localStorage.setItem('uuid', user.user.uid);
+
       //navigate to the create profile page
       navigate('/create-profile');
     } catch (error) {
@@ -60,11 +63,49 @@ const Login: FC = () => {
     }
   };
 
+  const anonymosSigninHandler = async () => {
+    const res = await axios.get('https://randomuser.me/api/?results=1');
+    const displayName =
+      res.data.results[0].name.first + ' ' + res.data.results[0].name.last;
+    const email = res.data.results[0].email;
+    const photoURL = res.data.results[0].picture.thumbnail;
+    const uuid = res.data.results[0].login.uuid;
+
+    set(ref(db, 'users/' + uuid), {
+      displayName: displayName,
+      email: email,
+      photoUrl: photoURL,
+      uuid: uuid,
+    }).catch((error) => {
+      console.error(error);
+    });
+
+    //save the data to the redux slice
+    dispatch(
+      setUserData({
+        userData: {
+          displayName: displayName as string,
+          email: email as string,
+          photoUrl: photoURL as string,
+          uuid: uuid,
+        },
+      })
+    );
+
+    localStorage.setItem('uuid', uuid);
+
+    //navigate to the create profile page
+    navigate('/create-profile');
+  };
+
   return (
     <div>
       <h2>Plug-App-Task</h2>
-      <Button type='primary' onClick={signInHandler}>
+      <Button type='primary' onClick={googleSigninHandler}>
         Sign-In With Google
+      </Button>
+      <Button type='primary' onClick={anonymosSigninHandler}>
+        Stay Anonymos
       </Button>
     </div>
   );
