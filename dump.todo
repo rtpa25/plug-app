@@ -1,9 +1,10 @@
 ☐ First create the Auth Page 
-  ☐ Setup the default react dev setup with react-router-dom and the usuall fasade
+  ✔ Setup the default react dev setup with react-router-dom and the usuall fasade @done (4/16/2022, 7:39:22 AM)
   ☐ Add google auth
-    ☐ Setup the firebase app
+    ✔ Setup the firebase app @done (4/16/2022, 7:39:29 AM)
     ☐ Make a login page and check the login flow
       ☐ User once logged in should not be able to navigate to the login page if does by force should be redirected to the profiles page
+      ☐ The routes should be protected
       ☐ Once logged in should store the auth details to the redux slice
       ☐ Post login should be redirected to the create profile page to create the profile
   ☐ Store the relevant details with redux toolkit to be used in multiple pages
