@@ -13,7 +13,8 @@
     ✔ Need to figure out how to persist the anonymous login details when the user re logs in (later) @done (4/16/2022, 3:39:49 PM)
       ✔ can store some stuff in browser maybe need to figure this out @done (4/16/2022, 3:39:52 PM)
   ✔ Store the relevant details with redux toolkit to be used in multiple pages @done (4/16/2022, 12:02:52 PM)
-  ☐ Build the UI for the auth page 
+  ✔ Build the UI for the auth page @done (4/16/2022, 6:09:19 PM)
+  ☐ Add strong type checking to all the places where data is being set or get from the internet
 
 ☐ Create the profile page
   ☐ Get the user data that is needed to render the profile create/update page

@@ -4,12 +4,28 @@ import { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, db, provider } from '../services/firebase';
-import { Button } from 'antd';
+import { Button, Image } from 'antd';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useAppDispatch } from '../hooks/index';
 import { setUserData } from '../store/slices/userSlice';
 import { ref, set } from 'firebase/database';
 import axios from 'axios';
+import { GoogleOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  box-shadow: 13px 13px 31px 7px rgba(168, 167, 167, 0.62);
+  margin: 0 10rem;
+  border-radius: 10px;
+  @media only screen and (max-width: 730px) {
+    box-shadow: none;
+  }
+`;
 
 const Login: FC = () => {
   const navigate = useNavigate();
@@ -99,15 +115,26 @@ const Login: FC = () => {
   };
 
   return (
-    <div>
-      <h2>Plug-App-Task</h2>
-      <Button type='primary' onClick={googleSigninHandler}>
+    <Container>
+      <Image src='logo192.png' preview={false} />
+      <Button
+        onClick={googleSigninHandler}
+        type='primary'
+        shape='round'
+        size='large'
+        style={{ width: '20rem', margin: '1rem' }}
+        icon={<GoogleOutlined />}>
         Sign-In With Google
       </Button>
-      <Button type='primary' onClick={anonymosSigninHandler}>
+      <Button
+        type='ghost'
+        shape='round'
+        style={{ width: '20rem', margin: '1rem' }}
+        onClick={anonymosSigninHandler}
+        size='large'>
         Stay Anonymos
       </Button>
-    </div>
+    </Container>
   );
 };
 
