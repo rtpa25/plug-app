@@ -13,6 +13,7 @@ import {
   startAt,
   endAt,
   limitToFirst,
+  startAfter,
 } from 'firebase/database';
 import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -43,14 +44,17 @@ const Profiles: FC = () => {
   };
 
   const [sortedUserData, setSortedUserData] = useState<any[]>([]);
-  const [startAfter, setStartAfter] = useState(0);
+  const [lastVisible, setLastVisible] = useState(6);
   const [isLoading, setisLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       setisLoading(true);
-      const fetchUserQuery = query(ref(db, 'users/'), orderByChild('points'));
-      console.log(fetchUserQuery);
+      const fetchUserQuery = query(
+        ref(db, 'users/'),
+        orderByChild('points'),
+        limitToLast(lastVisible)
+      );
       onValue(fetchUserQuery, (snapshot: DataSnapshot) => {
         let arr: any[] = [];
         snapshot.forEach((childSnap) => {
@@ -61,7 +65,7 @@ const Profiles: FC = () => {
       setisLoading(false);
     };
     fetchData();
-  }, []);
+  }, [lastVisible]);
 
   const voteHandler = async (
     uuidOfProfileToBeVoted: string,
@@ -154,7 +158,15 @@ const Profiles: FC = () => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Button style={{ textAlign: 'center' }}>Load More</Button>
+        <Button
+          style={{ textAlign: 'center' }}
+          onClick={() => {
+            setLastVisible((prevState) => {
+              return (prevState += 6);
+            });
+          }}>
+          Load More
+        </Button>
         <Button onClick={signoutHandler}>Logout</Button>
       </ButtonContainer>
     </Container>

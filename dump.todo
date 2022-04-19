@@ -28,9 +28,9 @@
   ☐ Add strong type checking to all the places where data is being set or get from the internet
 
 ☐ Create the profiles page
-  ☐ Fetch the required data for the profiles page
+  ✔ Fetch the required data for the profiles page @done (4/19/2022, 10:59:34 AM)
     ✔ Sorted with respect to points @done (4/18/2022, 3:35:09 PM)
-    ☐ the data should be paginated
+    ✔ the data should be paginated @done (4/19/2022, 10:59:32 AM)
     ✔ Build the UI of the data @done (4/18/2022, 4:20:31 PM)
     ✔ Once the UI is build hook up the data with the UI @done (4/19/2022, 10:04:21 AM)
       ✔ Structure the data and @done (4/18/2022, 4:20:37 PM)
@@ -39,6 +39,7 @@
       ✔ One user should just vote once and later can just change there own vote @done (4/19/2022, 9:55:14 AM)
       ✔ One can not vote to themselves @done (4/19/2022, 10:04:15 AM)
     ✔ Hook up those functions with the frontend @done (4/18/2022, 6:01:22 PM)
+    ☐ Add strong type checking to all the places where data is being set or get from the internet
 
     
 
