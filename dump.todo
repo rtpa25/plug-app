@@ -46,10 +46,11 @@
   ✔ Add a better auth checker to auth tsx page the current one takes ages to redirect to the right page @done (4/19/2022, 11:22:24 AM)
   ✔ Check the entire flow of the app and fix if any issues found @done (4/19/2022, 11:26:25 AM)
   ✔ Add strong type checking to wherever you can @done (4/19/2022, 12:11:35 PM)
-  ☐ Do a lot of refactoring from pages --> components
+  ✔ Do a lot of refactoring from pages --> components @done (4/19/2022, 3:46:17 PM)
   ☐ Hunt for repetable functions and put them into some utils of sorts
   
 ☐ More Todos
-  ☐ Build the favourite feature 
-  ☐ Figure out hosting and make a game plan to host or try to host 
+  ✔ Build the favourite feature @done (4/19/2022, 3:31:25 PM)
+  ☐ Check out how to build the CRA boilerplate and then migrate this project to that [!!!Do not modify this one]
+  ☐ Host with firebase hosting
   

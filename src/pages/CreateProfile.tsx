@@ -74,6 +74,7 @@ const CreateProfile: FC = () => {
           status: status,
           points: 0,
           votes: {},
+          favourites: {},
         },
       })
     );

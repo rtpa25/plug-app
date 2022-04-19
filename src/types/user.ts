@@ -14,4 +14,7 @@ export interface user {
   votes: {
     [uuidVoted: string]: number;
   };
+  favourites: {
+    [uuidVoted: string]: number;
+  };
 }

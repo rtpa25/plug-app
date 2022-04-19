@@ -12,6 +12,7 @@ const initialState: IndividualUser = {
     status: '',
     points: 0,
     votes: {},
+    favourites: {},
   },
 };
 

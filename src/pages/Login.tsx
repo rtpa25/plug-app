@@ -47,6 +47,9 @@ const Login: FC = () => {
             votes: {
               asd: 1,
             },
+            favourites: {
+              asd: 1,
+            },
           }).catch((error) => {
             console.error(error);
           });
@@ -80,6 +83,9 @@ const Login: FC = () => {
       votes: {
         asd: 1,
       },
+      favourites: {
+        asd: 1,
+      },
     }).catch((error) => {
       console.error(error);
     });
@@ -95,6 +101,7 @@ const Login: FC = () => {
           status: '',
           points: 0,
           votes: {},
+          favourites: {},
         },
       })
     );

@@ -1,6 +1,6 @@
 /** @format */
 
-import { Avatar, Button, List, Skeleton } from 'antd';
+import { Button  } from 'antd';
 import {
   ref,
   onValue,
@@ -8,18 +8,14 @@ import {
   query,
   orderByChild,
   limitToLast,
-  update,
 } from 'firebase/database';
 import { FC, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { db } from '../services/firebase';
-import {
-  ArrowUpOutlined,
-  ArrowDownOutlined,
-  EditOutlined,
-} from '@ant-design/icons';
 import Navbar from '../components/Navbar';
+import { user } from '../types/user';
+import ProfileShow from '../components/ProfileShow';
+
 
 const Container = styled.div`
   margin: 2rem;
@@ -32,9 +28,10 @@ const ButtonContainer = styled.div`
 `;
 
 const Profiles: FC = () => {
-  const navigate = useNavigate();
-
-  const [sortedUserData, setSortedUserData] = useState<any[]>([]);
+  const [sortedUserData, setSortedUserData] = useState<user[]>([]);
+  const [sortedFavouriteUserData, setSortedFavouriteUserData] = useState<
+    user[]
+  >([]);
   const [lastVisible, setLastVisible] = useState(6);
   const [isLoading, setisLoading] = useState(false);
 
@@ -47,103 +44,39 @@ const Profiles: FC = () => {
         limitToLast(lastVisible)
       );
       onValue(fetchUserQuery, (snapshot: DataSnapshot) => {
-        let arr: any[] = [];
+        let arr: user[] = [];
+        let favUserArr: user[] = [];
+        const uuidOfSelf = localStorage.getItem('uuid');
         snapshot.forEach((childSnap) => {
           arr.push(childSnap.val());
         });
-        setSortedUserData(arr.sort((a, b) => b - a));
+        arr.forEach((user) => {
+          if (user.favourites[uuidOfSelf as string]) {
+            favUserArr.push(user);
+          }
+        });
+        setSortedFavouriteUserData(
+          favUserArr.sort((a, b) => b.points - a.points)
+        );
+        setSortedUserData(arr.sort((a, b) => b.points - a.points));
       });
+
       setisLoading(false);
     };
     fetchData();
   }, [lastVisible]);
 
-  const voteHandler = async (
-    uuidOfProfileToBeVoted: string,
-    currentPoints: number,
-    type: 'inc' | 'dec'
-  ) => {
-    const uuidOfCurrentUser = localStorage.getItem('uuid');
-    let votes: any;
-    let isVoted = false;
-    onValue(
-      ref(db, 'users/' + uuidOfProfileToBeVoted),
-      (snapshot: DataSnapshot) => {
-        const data = snapshot.val();
-        for (const key in data) {
-          if (key === 'votes') {
-            votes = data[key];
-            if (
-              votes[uuidOfCurrentUser as string] === (type === 'inc' ? 1 : -1)
-            ) {
-              isVoted = true;
-              return;
-            }
-          }
-        }
-      }
-    );
-    if (!isVoted) {
-      const updatedVotes = { ...votes };
-      updatedVotes[uuidOfCurrentUser as string] = type === 'inc' ? 1 : -1;
-      update(ref(db, 'users/' + uuidOfProfileToBeVoted), {
-        votes: updatedVotes,
-        points: type === 'inc' ? (currentPoints += 1) : (currentPoints -= 1),
-      }).catch((error) => {
-        console.error(error);
-      });
-    }
-  };
-
   return (
     <div>
       <Navbar />
       <Container>
-        <List
-          className='demo-loadmore-list'
-          loading={isLoading}
-          itemLayout='horizontal'
-          dataSource={sortedUserData}
-          renderItem={(item) => (
-            <List.Item
-              actions={
-                item.uuid !== localStorage.getItem('uuid')
-                  ? [
-                      <button
-                        style={{ color: 'green', cursor: 'pointer' }}
-                        onClick={() => {
-                          voteHandler(item.uuid, item.points, 'inc');
-                        }}>
-                        <ArrowUpOutlined />
-                      </button>,
-                      <button
-                        style={{ color: 'red', cursor: 'pointer' }}
-                        onClick={() => {
-                          voteHandler(item.uuid, item.points, 'dec');
-                        }}>
-                        <ArrowDownOutlined />
-                      </button>,
-                    ]
-                  : [
-                      <button
-                        style={{ color: 'blue', cursor: 'pointer' }}
-                        onClick={() => {
-                          navigate('/create-profile');
-                        }}>
-                        <EditOutlined />
-                      </button>,
-                    ]
-              }>
-              <Skeleton avatar title={false} loading={item.loading} active>
-                <List.Item.Meta
-                  avatar={<Avatar src={item.photoUrl} />}
-                  title={item.displayName}
-                  description={item.status}
-                />
-                <div>{item.points}</div>
-              </Skeleton>
-            </List.Item>
-          )}
+        <ProfileShow
+          isLoading={isLoading}
+          sortedFavouriteUserData={sortedFavouriteUserData}
+        />
+        <ProfileShow
+          isLoading={isLoading}
+          sortedFavouriteUserData={sortedUserData}
         />
         <ButtonContainer
           style={{
