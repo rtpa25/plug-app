@@ -11,27 +11,30 @@ import { setUserData } from './store/slices/userSlice';
 const App: FC = () => {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const checkValidity = async () => {
       setIsLoading(true);
-      const uuid = localStorage.getItem('uuid');
-      console.log(uuid);
-      if (!uuid) {
-        setIsLoading(false);
-        return;
+      try {
+        const uuid = localStorage.getItem('uuid');
+        if (!uuid) {
+          setIsLoading(false);
+          return;
+        }
+        const userRef = ref(db, 'users/' + uuid);
+        onValue(userRef, (snapshot: DataSnapshot) => {
+          const data = snapshot.val();
+          dispatch(setUserData({ userData: data }));
+        });
+      } catch (error) {
+        console.error(error);
       }
-      const userRef = ref(db, 'users/' + uuid);
-      onValue(userRef, (snapshot: DataSnapshot) => {
-        const data = snapshot.val();
-        dispatch(setUserData({ userData: data }));
-      });
       setIsLoading(false);
     };
     checkValidity();
   }, [dispatch]);
 
   const user = useAppSelector((state) => state.user.res);
-  console.log(user);
 
   if (isLoading) {
     return <div>Loading</div>;
@@ -39,7 +42,10 @@ const App: FC = () => {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path='/login' element={<Login />} />
+          <Route
+            path='/login'
+            element={user.displayName !== '' ? <Profiles /> : <Login />}
+          />
           <Route
             path='/create-profile'
             element={user.displayName !== '' ? <CreateProfile /> : <Login />}

@@ -1,7 +1,6 @@
 /** @format */
 
 import { Avatar, Button, List, Skeleton } from 'antd';
-import { signOut } from 'firebase/auth';
 import {
   ref,
   onValue,
@@ -10,20 +9,17 @@ import {
   orderByChild,
   limitToLast,
   update,
-  startAt,
-  endAt,
-  limitToFirst,
-  startAfter,
 } from 'firebase/database';
 import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { auth, db } from '../services/firebase';
+import { db } from '../services/firebase';
 import {
   ArrowUpOutlined,
   ArrowDownOutlined,
   EditOutlined,
 } from '@ant-design/icons';
+import Navbar from '../components/Navbar';
 
 const Container = styled.div`
   margin: 2rem;
@@ -37,11 +33,6 @@ const ButtonContainer = styled.div`
 
 const Profiles: FC = () => {
   const navigate = useNavigate();
-  const signoutHandler = async () => {
-    await signOut(auth);
-    localStorage.removeItem('uuid');
-    navigate('/login');
-  };
 
   const [sortedUserData, setSortedUserData] = useState<any[]>([]);
   const [lastVisible, setLastVisible] = useState(6);
@@ -105,71 +96,72 @@ const Profiles: FC = () => {
   };
 
   return (
-    <Container>
-      <List
-        className='demo-loadmore-list'
-        loading={isLoading}
-        itemLayout='horizontal'
-        dataSource={sortedUserData}
-        renderItem={(item) => (
-          <List.Item
-            actions={
-              item.uuid !== localStorage.getItem('uuid')
-                ? [
-                    <button
-                      style={{ color: 'green', cursor: 'pointer' }}
-                      onClick={() => {
-                        voteHandler(item.uuid, item.points, 'inc');
-                      }}>
-                      <ArrowUpOutlined />
-                    </button>,
-                    <button
-                      style={{ color: 'red', cursor: 'pointer' }}
-                      onClick={() => {
-                        voteHandler(item.uuid, item.points, 'dec');
-                      }}>
-                      <ArrowDownOutlined />
-                    </button>,
-                  ]
-                : [
-                    <button
-                      style={{ color: 'blue', cursor: 'pointer' }}
-                      onClick={() => {
-                        navigate('/create-profile');
-                      }}>
-                      <EditOutlined />
-                    </button>,
-                  ]
-            }>
-            <Skeleton avatar title={false} loading={item.loading} active>
-              <List.Item.Meta
-                avatar={<Avatar src={item.photoUrl} />}
-                title={item.displayName}
-                description={item.status}
-              />
-              <div>{item.points}</div>
-            </Skeleton>
-          </List.Item>
-        )}
-      />
-      <ButtonContainer
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Button
-          style={{ textAlign: 'center' }}
-          onClick={() => {
-            setLastVisible((prevState) => {
-              return (prevState += 6);
-            });
+    <div>
+      <Navbar />
+      <Container>
+        <List
+          className='demo-loadmore-list'
+          loading={isLoading}
+          itemLayout='horizontal'
+          dataSource={sortedUserData}
+          renderItem={(item) => (
+            <List.Item
+              actions={
+                item.uuid !== localStorage.getItem('uuid')
+                  ? [
+                      <button
+                        style={{ color: 'green', cursor: 'pointer' }}
+                        onClick={() => {
+                          voteHandler(item.uuid, item.points, 'inc');
+                        }}>
+                        <ArrowUpOutlined />
+                      </button>,
+                      <button
+                        style={{ color: 'red', cursor: 'pointer' }}
+                        onClick={() => {
+                          voteHandler(item.uuid, item.points, 'dec');
+                        }}>
+                        <ArrowDownOutlined />
+                      </button>,
+                    ]
+                  : [
+                      <button
+                        style={{ color: 'blue', cursor: 'pointer' }}
+                        onClick={() => {
+                          navigate('/create-profile');
+                        }}>
+                        <EditOutlined />
+                      </button>,
+                    ]
+              }>
+              <Skeleton avatar title={false} loading={item.loading} active>
+                <List.Item.Meta
+                  avatar={<Avatar src={item.photoUrl} />}
+                  title={item.displayName}
+                  description={item.status}
+                />
+                <div>{item.points}</div>
+              </Skeleton>
+            </List.Item>
+          )}
+        />
+        <ButtonContainer
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
-          Load More
-        </Button>
-        <Button onClick={signoutHandler}>Logout</Button>
-      </ButtonContainer>
-    </Container>
+          <Button
+            onClick={() => {
+              setLastVisible((prevState) => {
+                return (prevState += 6);
+              });
+            }}>
+            Load More
+          </Button>
+        </ButtonContainer>
+      </Container>
+    </div>
   );
 };
 

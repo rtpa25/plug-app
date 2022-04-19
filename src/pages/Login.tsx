@@ -1,11 +1,10 @@
 /** @format */
 
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, db, provider } from '../services/firebase';
 import { Button, Image } from 'antd';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { useAppDispatch } from '../hooks/index';
 import { setUserData } from '../store/slices/userSlice';
 import { DataSnapshot, onValue, ref, set } from 'firebase/database';
@@ -29,20 +28,9 @@ const Container = styled.div`
 
 const Login: FC = () => {
   const navigate = useNavigate();
-  const [user] = useAuthState(auth);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const manageUserData = async () => {
-      if (user) {
-        navigate('/');
-      }
-    };
-    manageUserData();
-  }, [navigate, user]);
-
   const googleSigninHandler = async () => {
-    //!TODO: need to improve type checking
     try {
       const user = await signInWithPopup(auth, provider);
       const userRef = ref(db, 'users/' + user.user.uid);
@@ -69,7 +57,6 @@ const Login: FC = () => {
         navigate('/create-profile');
       });
     } catch (error) {
-      alert('Please make sure you are connected to the internet');
       console.error(error);
     }
   };
@@ -79,7 +66,8 @@ const Login: FC = () => {
     const displayName =
       res.data.results[0].name.first + ' ' + res.data.results[0].name.last;
     const email = res.data.results[0].email;
-    const photoURL = res.data.results[0].picture.thumbnail;
+    console.log(res.data.results[0].picture);
+    const photoURL = res.data.results[0].picture.large;
     const uuid = res.data.results[0].login.uuid;
 
     set(ref(db, 'users/' + uuid), {

@@ -1,4 +1,4 @@
-☐ First create the Auth Page 
+✔ First create the Auth Page @done (4/19/2022, 12:16:12 PM)
   ✔ Setup the default react dev setup with react-router-dom and the usuall fasade @done (4/16/2022, 7:39:22 AM)
   ✔ Add google auth @done (4/16/2022, 11:59:45 AM)
     ✔ Setup the firebase app @done (4/16/2022, 7:39:29 AM)
@@ -14,9 +14,9 @@
       ✔ can store some stuff in browser maybe need to figure this out @done (4/16/2022, 3:39:52 PM)
   ✔ Store the relevant details with redux toolkit to be used in multiple pages @done (4/16/2022, 12:02:52 PM)
   ✔ Build the UI for the auth page @done (4/16/2022, 6:09:19 PM)
-  ☐ Add strong type checking to all the places where data is being set or get from the internet
+  ✔ Add strong type checking to all the places where data is being set or get from the internet @done (4/19/2022, 12:16:08 PM)
 
-☐ Create the create-profile page
+✔ Create the create-profile page @done (4/19/2022, 12:16:15 PM)
   ✔ Get the user data that is needed to render the profile create/update page @done (4/16/2022, 6:45:44 PM)
     ✔ Username, photo @done (4/16/2022, 6:45:45 PM)
   ✔ Create an empty field where the user has to type in the status @done (4/16/2022, 6:45:48 PM)
@@ -25,9 +25,9 @@
     ✔ Update the redux state with the status @done (4/16/2022, 6:45:54 PM)
     ✔ redirect to all profiles page @done (4/16/2022, 6:47:54 PM)
   ✔ Build the UI of the page @done (4/17/2022, 7:37:27 AM)
-  ☐ Add strong type checking to all the places where data is being set or get from the internet
+  ✔ Add strong type checking to all the places where data is being set or get from the internet @done (4/19/2022, 12:15:59 PM)
 
-☐ Create the profiles page
+✔ Create the profiles page @done (4/19/2022, 12:16:19 PM)
   ✔ Fetch the required data for the profiles page @done (4/19/2022, 10:59:34 AM)
     ✔ Sorted with respect to points @done (4/18/2022, 3:35:09 PM)
     ✔ the data should be paginated @done (4/19/2022, 10:59:32 AM)
@@ -39,9 +39,17 @@
       ✔ One user should just vote once and later can just change there own vote @done (4/19/2022, 9:55:14 AM)
       ✔ One can not vote to themselves @done (4/19/2022, 10:04:15 AM)
     ✔ Hook up those functions with the frontend @done (4/18/2022, 6:01:22 PM)
-    ☐ Add strong type checking to all the places where data is being set or get from the internet
+    ✔ Add strong type checking to all the places where data is being set or get from the internet @done (4/19/2022, 12:16:03 PM)
 
     
-
+☐ Finishing touches
+  ✔ Add a better auth checker to auth tsx page the current one takes ages to redirect to the right page @done (4/19/2022, 11:22:24 AM)
+  ✔ Check the entire flow of the app and fix if any issues found @done (4/19/2022, 11:26:25 AM)
+  ✔ Add strong type checking to wherever you can @done (4/19/2022, 12:11:35 PM)
+  ☐ Do a lot of refactoring from pages --> components
+  ☐ Hunt for repetable functions and put them into some utils of sorts
   
+☐ More Todos
+  ☐ Build the favourite feature 
+  ☐ Figure out hosting and make a game plan to host or try to host 
   

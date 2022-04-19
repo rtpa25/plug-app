@@ -5,7 +5,7 @@ import { FC, useState } from 'react';
 import { db } from '../services/firebase';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { set, ref, update } from 'firebase/database';
+import { ref, update } from 'firebase/database';
 import { setUserData } from '../store/slices/userSlice';
 import styled from 'styled-components';
 
