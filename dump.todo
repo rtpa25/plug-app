@@ -28,17 +28,19 @@
   ☐ Add strong type checking to all the places where data is being set or get from the internet
 
 ☐ Create the profiles page
-  ☐ Get all the data from real time db that is needed 
-    ☐ Need to figure out sorting with points 
-      ☐ When ever the user is created points should be set to 0 by default
-    ☐ Data should be paginated
-  ☐ Get the UI done for the main page 
-  ☐ build the funtions that are needed for upvoting
-  ☐ Keep an icon to favourite in the UI 
-    ☐ Need to figure out how to execute this
-  ☐ Hook up the functions with the icons
-  ☐ Add strong type checking to all the places where data is being set or get from the internet
+  ☐ Fetch the required data for the profiles page
+    ✔ Sorted with respect to points @done (4/18/2022, 3:35:09 PM)
+    ☐ the data should be paginated
+    ✔ Build the UI of the data @done (4/18/2022, 4:20:31 PM)
+    ✔ Once the UI is build hook up the data with the UI @done (4/19/2022, 10:04:21 AM)
+      ✔ Structure the data and @done (4/18/2022, 4:20:37 PM)
+      ✔ Make ternary checks to make the self profile look different from the regular profile @done (4/19/2022, 10:04:18 AM)
+    ✔ Write fucntions to update the points @done (4/18/2022, 6:01:21 PM)
+      ✔ One user should just vote once and later can just change there own vote @done (4/19/2022, 9:55:14 AM)
+      ✔ One can not vote to themselves @done (4/19/2022, 10:04:15 AM)
+    ✔ Hook up those functions with the frontend @done (4/18/2022, 6:01:22 PM)
 
+    
 
   
   

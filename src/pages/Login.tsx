@@ -8,7 +8,7 @@ import { Button, Image } from 'antd';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useAppDispatch } from '../hooks/index';
 import { setUserData } from '../store/slices/userSlice';
-import { ref, set } from 'firebase/database';
+import { DataSnapshot, onValue, ref, set } from 'firebase/database';
 import axios from 'axios';
 import { GoogleOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
@@ -44,36 +44,30 @@ const Login: FC = () => {
   const googleSigninHandler = async () => {
     //!TODO: need to improve type checking
     try {
-      //reach out to google's server to authenticate with third party
       const user = await signInWithPopup(auth, provider);
-
-      //set the fetched data to fireabse real time database--> this will update if the data is already set
-      set(ref(db, 'users/' + user.user.uid), {
-        displayName: user.user.displayName,
-        email: user.user.email,
-        photoUrl: user.user.photoURL,
-        uuid: user.user.uid,
-      }).catch((error) => {
-        console.error(error);
-      });
-
-      //save the data to the redux slice
-      dispatch(
-        setUserData({
-          userData: {
-            displayName: user.user.displayName as string,
-            email: user.user.email as string,
-            photoUrl: user.user.photoURL as string,
+      const userRef = ref(db, 'users/' + user.user.uid);
+      onValue(userRef, (snapshot: DataSnapshot) => {
+        const data = snapshot.val();
+        if (data === null) {
+          set(ref(db, 'users/' + user.user.uid), {
+            displayName: user.user.displayName,
+            email: user.user.email,
+            photoUrl: user.user.photoURL,
             uuid: user.user.uid,
             status: '',
-          },
-        })
-      );
-
-      localStorage.setItem('uuid', user.user.uid);
-
-      //navigate to the create profile page
-      navigate('/create-profile');
+            points: 0,
+            votes: {
+              asd: 1,
+            },
+          }).catch((error) => {
+            console.error(error);
+          });
+        } else {
+          dispatch(setUserData({ userData: data }));
+        }
+        localStorage.setItem('uuid', data.uuid);
+        navigate('/create-profile');
+      });
     } catch (error) {
       alert('Please make sure you are connected to the internet');
       console.error(error);
@@ -93,6 +87,11 @@ const Login: FC = () => {
       email: email,
       photoUrl: photoURL,
       uuid: uuid,
+      status: '',
+      points: 0,
+      votes: {
+        asd: 1,
+      },
     }).catch((error) => {
       console.error(error);
     });
@@ -106,6 +105,8 @@ const Login: FC = () => {
           photoUrl: photoURL as string,
           uuid: uuid,
           status: '',
+          points: 0,
+          votes: {},
         },
       })
     );

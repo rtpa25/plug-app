@@ -5,7 +5,7 @@ import { FC, useState } from 'react';
 import { db } from '../services/firebase';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { set, ref } from 'firebase/database';
+import { set, ref, update } from 'firebase/database';
 import { setUserData } from '../store/slices/userSlice';
 import styled from 'styled-components';
 
@@ -59,11 +59,7 @@ const CreateProfile: FC = () => {
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.user.res);
   const submitStatusHandler = async () => {
-    set(ref(db, 'users/' + userData.uuid), {
-      displayName: userData.displayName,
-      email: userData.email,
-      photoUrl: userData.photoUrl,
-      uuid: userData.uuid,
+    update(ref(db, 'users/' + userData.uuid), {
       status: status,
     }).catch((error) => {
       console.error(error);
@@ -76,6 +72,8 @@ const CreateProfile: FC = () => {
           photoUrl: userData.photoUrl,
           uuid: userData.uuid,
           status: status,
+          points: 0,
+          votes: {},
         },
       })
     );

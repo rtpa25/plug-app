@@ -10,4 +10,8 @@ export interface user {
   uuid: string;
   email: string;
   status: string;
+  points: number;
+  votes: {
+    [uuidVoted: string]: number;
+  };
 }

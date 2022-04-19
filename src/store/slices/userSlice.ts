@@ -10,6 +10,8 @@ const initialState: IndividualUser = {
     photoUrl: '',
     uuid: '',
     status: '',
+    points: 0,
+    votes: {},
   },
 };
 
