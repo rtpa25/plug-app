@@ -175,7 +175,7 @@ const Login: FC = () => {
         style={{ width: '20rem', margin: '1rem' }}
         onClick={anonymosSigninHandler}
         size='large'>
-        Stay Anonymos
+        Stay Anonymous
       </Button>
       <Button
         type='primary'
