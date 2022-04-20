@@ -1,6 +1,6 @@
 /** @format */
 
-import { Button  } from 'antd';
+import { Button } from 'antd';
 import {
   ref,
   onValue,
@@ -15,7 +15,6 @@ import { db } from '../services/firebase';
 import Navbar from '../components/Navbar';
 import { user } from '../types/user';
 import ProfileShow from '../components/ProfileShow';
-
 
 const Container = styled.div`
   margin: 2rem;
@@ -73,10 +72,12 @@ const Profiles: FC = () => {
         <ProfileShow
           isLoading={isLoading}
           sortedFavouriteUserData={sortedFavouriteUserData}
+          title={'Your Favs'}
         />
         <ProfileShow
           isLoading={isLoading}
           sortedFavouriteUserData={sortedUserData}
+          title={'More Friends'}
         />
         <ButtonContainer
           style={{

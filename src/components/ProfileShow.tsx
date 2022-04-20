@@ -13,17 +13,24 @@ import { Typography } from 'antd';
 import { onValue, ref, DataSnapshot, update } from 'firebase/database';
 import { db } from '../services/firebase';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 const { Title } = Typography;
 
 interface ProfileShowProps {
   isLoading: boolean;
   sortedFavouriteUserData: user[];
+  title: string;
 }
+
+const Container = styled.div`
+  margin: 1rem 0 1rem 0;
+`;
 
 const ProfileShow: FC<ProfileShowProps> = ({
   isLoading,
   sortedFavouriteUserData,
+  title,
 }) => {
   const navigate = useNavigate();
   const voteHandler = async (
@@ -85,9 +92,15 @@ const ProfileShow: FC<ProfileShowProps> = ({
   };
 
   return (
-    <div>
-      <Title level={3} style={{ marginTop: '.75rem', marginBottom: '.75rem' }}>
-        Your Favs
+    <Container>
+      <Title
+        level={3}
+        style={{
+          marginTop: '.75rem',
+          marginBottom: '.75rem',
+          color: '#40A9FF',
+        }}>
+        {title}
       </Title>
       <List
         className='demo-loadmore-list'
@@ -142,7 +155,7 @@ const ProfileShow: FC<ProfileShowProps> = ({
           </List.Item>
         )}
       />
-    </div>
+    </Container>
   );
 };
 
