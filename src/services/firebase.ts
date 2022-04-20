@@ -3,7 +3,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
-import 'dotenv/config';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
